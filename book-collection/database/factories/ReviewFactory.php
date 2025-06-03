@@ -18,7 +18,7 @@ class ReviewFactory extends Factory
     public function definition(): array
     {
         return [
-            'book_id' => rand(1, Author::count()),
+            'book_id' => rand(1, 10),
             'content' => $this->faker->sentence(5),
         ];
     }
