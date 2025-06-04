@@ -13,3 +13,26 @@ export const fetchAuthors = async () => {
     if(!data) return
     authors.value = data;
 };
+
+export const createAuthor = async (newAuthor) => {
+    const {data} = await axios.post('/api/authors', newAuthor);
+    if(!data) return
+    authors.value = data;
+};
+
+export const getAuthorById = (id) => computed(() => authors.value.find(author => author.id == id));
+
+export const updateAuthor = async (id, updatedAuthor) => {
+    const { data } = await axios.put(`/api/authors/${id}`, updatedAuthor);
+    if (!data) return;
+    authors.value = data;
+};
+
+export const deleteAuthor = async (id) => {
+    try {
+        await axios.delete(`/api/authors/${id}`);
+        authors.value = authors.value.filter(author => author.id !== id);
+    } catch(e) {
+        alert(e.response.data.message);
+    }
+};

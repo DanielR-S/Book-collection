@@ -22,4 +22,18 @@ public function store(StoreBookRequest $request) {
     return BookResource::collection($books);
 }
 
+public function update(StoreBookRequest $request, Book $book) {
+    $book->update($request->validated());
+
+    $books = Book::all();
+    return BookResource::collection($books);
 }
+
+public function destroy(Book $book) {
+    $book->delete();
+    return response()->json(['message' => 'Boek succesvol verwijderd']);
+}
+
+}
+
+

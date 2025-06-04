@@ -19,3 +19,16 @@ export const createBook = async (newBook) => {
     if(!data) return
     books.value = data;
 };
+
+export const getBookById = (id) => computed(() => books.value.find(book => book.id == id));
+
+export const updateBook = async (id, updatedBook) => {
+    const { data } = await axios.put(`/api/books/${id}`, updatedBook);
+    if (!data) return;
+    books.value = data;
+};
+
+export const deleteBook = async (id) => {
+    await axios.delete(`/api/books/${id}`);
+    books.value = books.value.filter(book => book.id !== id);
+};
