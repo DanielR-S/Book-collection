@@ -2,9 +2,14 @@
 import { onMounted } from 'vue';
 import { fetchAuthors, getAllAuthors, deleteAuthor } from '../store';
 import { fetchBooks, getAllBooks } from '../../books/store';
+import { storeModuleFactory } from '../../../services/store';
 
-fetchAuthors();
+const authorStore = storeModuleFactory('authors');
+authorStore.actions.getAll();
 
+// fetchAuthors();
+
+const authors = authorStore.getters.all;
 
 </script>
 <template>
@@ -14,7 +19,7 @@ fetchAuthors();
             <br>
             <th>actions</th>
         </tr>
-        <tr v-for="author in getAllAuthors" :key="author.id">
+        <tr v-for="author in authors" :key="author.id">
             <td>{{ author.name }}</td>
                         <td>
                 <RouterLink :to="{ name: 'authors.edit', params: { id: author.id } }">Bewerk</RouterLink>
