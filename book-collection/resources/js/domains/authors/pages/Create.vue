@@ -7,14 +7,15 @@
 
 <script setup>
 import Form from '../components/Form.vue';
-import { createAuthor } from '../store';
 import { useRouter } from 'vue-router';
 import { ref } from 'vue';
 import { storeModuleFactory } from '../../../services/store';
 
-// const authorStore = storeModuleFactory('authors');
-// authorStore.actions.getAll();
+const authorStore = storeModuleFactory('authors');
+authorStore.actions.getAll();
 
+
+const authors = authorStore.getters.all;
 // const addBook = async () => {
 //     await authorStore.actions.create({ name: 'Barthalomew' });
 //     router.push({name: 'authors.overview'});
@@ -27,7 +28,7 @@ const author = ref({
 });
 
 const handleSubmit = async (data) => {
-    await createAuthor(data);
+    await authorStore.actions.create(data);
     router.push({name: 'authors.overview'});
 };
 </script>

@@ -10,16 +10,30 @@ import { ref, onMounted, computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import Form from '../components/Form.vue';
 import { fetchBooks, getBookById, updateBook } from '../store';
+import { storeModuleFactory } from '../../../services/store';
+
+const bookStore = storeModuleFactory('books');
+bookStore.actions.getAll();
+bookStore.getters.all;
+// fetchAuthors();
+
+const books = bookStore.getters.all;
+
 
 const route = useRoute();
 const router = useRouter();
 
-fetchBooks();
+// fetchBooks();
 
-const book = getBookById(route.params.id);
+const book = bookStore.getters.getById(route.params.id);
 
 const handleSubmit = async (data) => {
-    await updateBook(route.params.id, data);
-    router.push({ name: 'books.overview' });
+  await bookStore.actions.update(data.id, { title: data.title, summary: data.summary, author_id: data.author_id  });
+  router.push({ name: 'books.overview' });
 };
+
+// const handleSubmit = async (data) => {
+//     await updateBook(route.params.id, data);
+//     router.push({ name: 'books.overview' });
+// };
 </script>

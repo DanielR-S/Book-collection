@@ -26,7 +26,7 @@ const authors = authorStore.getters.all;
             </td>
             <br>
             <td>
-                <button @click="deleteAuthor(author.id)">Verwijder</button>
+                <button @click="authorStore.actions.delete(author.id)">Verwijder</button>
             </td>
         </tr>
     </table>
