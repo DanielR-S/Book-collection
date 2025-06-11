@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\BookResource;
 use App\Models\Book;
 use App\Http\Requests\StoreBookRequest;
+use App\Models\Author;
 
 class BookController extends Controller
 {
@@ -33,6 +34,15 @@ public function destroy(Book $book) {
     $book->delete();
     return response()->json(['message' => 'Boek succesvol verwijderd']);
 }
+
+    public function show() {
+
+
+        $authors = author::all();
+
+        $books = book::all();
+        return [$authors, BookResource::collection($books)];
+    }
 
 }
 

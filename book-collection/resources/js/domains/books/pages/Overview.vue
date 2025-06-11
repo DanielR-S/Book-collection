@@ -19,7 +19,7 @@ const books = bookStore.getters.all;
             <th>actions</th>
         </tr>
         <tr v-for="book in books" :key="book.id">
-            <td>{{ book.title }}</td>
+            <RouterLink :to="{ name: 'books.show', params: { id: book.id } }"><td>{{ book.title }}</td></RouterLink>
             <td>{{ book.summary }}</td>
             <td>
                 <RouterLink :to="{ name: 'books.edit', params: { id: book.id } }">Bewerk</RouterLink>

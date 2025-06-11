@@ -1,8 +1,8 @@
 <script setup>
 import { onMounted } from 'vue';
-import { fetchAuthors, getAllAuthors, deleteAuthor } from '../store';
-import { fetchBooks, getAllBooks } from '../../books/store';
 import { storeModuleFactory } from '../../../services/store';
+import { getMessage } from './../../../services/error';
+import Message from '../../../services/error/Message.vue';
 
 const authorStore = storeModuleFactory('authors');
 authorStore.actions.getAll();
@@ -11,8 +11,13 @@ authorStore.actions.getAll();
 
 const authors = authorStore.getters.all;
 
+const deleteAuthor = async (author) => {
+    await authorStore.actions.delete(author.id);
+}
+
 </script>
 <template>
+    <Message />
     <table>
         <tr>
             <th>Name</th>
@@ -26,7 +31,7 @@ const authors = authorStore.getters.all;
             </td>
             <br>
             <td>
-                <button @click="authorStore.actions.delete(author.id)">Verwijder</button>
+                <button @click="deleteAuthor(author)">Verwijder</button>
             </td>
         </tr>
     </table>
