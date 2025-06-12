@@ -10,7 +10,6 @@ class Review extends Model
 
     protected $fillable = [
         'name',
-        'email',
         'book_id',
     ];
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
 use Illuminate\Http\Request;
@@ -26,3 +27,7 @@ Route::put('/authors/{author}', [AuthorController::class, 'update']);
 Route::delete('/authors/{author}', [AuthorController::class, 'destroy']);
 
 Route::get('/books/{book}', [BookController::class, 'show']);
+
+Route::post('/reviews', [ReviewController::class, 'store']);
+
+Route::get('/books/{book}/reviews', [BookController::class, 'indexByBookId']);

@@ -6,6 +6,7 @@ use App\Http\Resources\BookResource;
 use App\Models\Book;
 use App\Http\Requests\StoreBookRequest;
 use App\Models\Author;
+use App\Models\Review;
 
 class BookController extends Controller
 {
@@ -14,12 +15,22 @@ class BookController extends Controller
         return BookResource::collection(Book::all());
 
     // return BookResource::collection(Book::all());
-}
+    }
 
-public function store(StoreBookRequest $request) {
+    public function indexByBookId(Book $book) {
+
+        return $book->reviews;
+
+    // return BookResource::collection(Book::all());
+    }
+
+
+public function store(StoreBookRequest $request,) {
     $book = Book::create($request->validated());
 
     $books = Book::all();
+
+
     return BookResource::collection($books);
 }
 
@@ -41,6 +52,8 @@ public function destroy(Book $book) {
         $authors = author::all();
 
         $books = book::all();
+
+        $reviews = review::all();
         return [$authors, BookResource::collection($books)];
     }
 
