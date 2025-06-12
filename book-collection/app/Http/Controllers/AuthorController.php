@@ -40,4 +40,6 @@ class AuthorController extends Controller
 
     $author->delete();
     }
+
+    
 }
