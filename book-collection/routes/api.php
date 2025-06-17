@@ -28,6 +28,12 @@ Route::delete('/authors/{author}', [AuthorController::class, 'destroy']);
 
 Route::get('/books/{book}', [BookController::class, 'show']);
 
+Route::get('/reviews', [ReviewController::class, 'index']);
+
 Route::post('/reviews', [ReviewController::class, 'store']);
 
 Route::get('/books/{book}/reviews', [BookController::class, 'indexByBookId']);
+
+Route::delete('/reviews/{review}', [ReviewController::class, 'destroy']);
+
+Route::put('/reviews/{review}', [ReviewController::class, 'update']);

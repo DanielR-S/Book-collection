@@ -1,7 +1,10 @@
 import axios from 'axios';
 import { ref, onMounted, computed } from 'vue';
 import { getRequest, postRequest, putRequest, deleteRequest } from '../../services/http';
+import { storeModuleFactory } from '../../services/store';
 
+
+export const authorStore = storeModuleFactory('authors');
 // state
 const authors = ref([]);
 
@@ -15,25 +18,25 @@ export const fetchAuthors = async () => {
     authors.value = data;
 };
 
-export const createAuthor = async (newAuthor) => {
-    const {data} = await postRequest('/authors', newAuthor);
-    if(!data) return
-    authors.value = data;
-};
+// export const createAuthor = async (newAuthor) => {
+//     const {data} = await postRequest('/authors', newAuthor);
+//     if(!data) return
+//     authors.value = data;
+// };
 
-export const getAuthorById = (id) => computed(() => authors.value.find(author => author.id == id));
+// export const getAuthorById = (id) => computed(() => authors.value.find(author => author.id == id));
 
-export const updateAuthor = async (id, updatedAuthor) => {
-    const { data } = await putRequest(`/authors/${id}`, updatedAuthor);
-    if (!data) return;
-    authors.value = data;
-};
+// export const updateAuthor = async (id, updatedAuthor) => {
+//     const { data } = await putRequest(`/authors/${id}`, updatedAuthor);
+//     if (!data) return;
+//     authors.value = data;
+// };
 
-export const deleteAuthor = async (id) => {
-    try {
-        await deleteRequest(`/authors/${id}`);
-        authors.value = authors.value.filter(author => author.id !== id);
-    } catch(e) {
-        alert(e.response.data.message);
-    }
-};
+// export const deleteAuthor = async (id) => {
+//     try {
+//         await deleteRequest(`/authors/${id}`);
+//         authors.value = authors.value.filter(author => author.id !== id);
+//     } catch(e) {
+//         alert(e.response.data.message);
+//     }
+// };

@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted } from 'vue';
-import { fetchBooks, getAllBooks, deleteBook} from '../store';
+// import { fetchBooks, getAllBooks, deleteBook} from '../store';
 import { storeModuleFactory } from '../../../services/store';
 
 const bookStore = storeModuleFactory('books');
@@ -11,6 +11,8 @@ bookStore.actions.getAll();
 const books = bookStore.getters.all;
 </script>
 <template>
+<strong><p style="color:green">Tip: Click on a books title to see more info!!</p></strong>
+
     <table>
         <tr>
             <th>Title</th>

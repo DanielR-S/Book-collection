@@ -1,22 +1,20 @@
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted, computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import Form from '../components/Form.vue';
 import { storeModuleFactory } from '../../../services/store';
 import { getRequest } from '../../../services/http';
+import { authorStore } from '../../authors/store';
+import { reviewStore } from '../../reviews/store';
+import { bookStore } from '../store';
+
 
 const route = useRoute();
 const router = useRouter();
 
-const bookStore = storeModuleFactory('books');
-const authorStore = storeModuleFactory('authors');
-const reviewStore = storeModuleFactory('reviews');
+// const bookStore = storeModuleFactory('books');
+// const authorStore = storeModuleFactory('authors');
 
-reviewStore.actions.getByBookId = async(bookId) => {
-    const { data } = await getRequest(`books/${bookId}/reviews`);
-    if (!data) return;
-    reviewStore.setters.setAll(data);
-}
 
 const book = ref({});
 const author = ref({});
@@ -31,9 +29,19 @@ onMounted(async () => {
     await authorStore.actions.getAll();
     author.value = authorStore.getters.getById(book.value.author_id).value;
 
-    await reviewStore.actions.getByBookId(book.id);
-    reviews.value = reviewStore.getters.getById(book.id).value;
+    await reviewStore.actions.getAll();
+    reviews.value = reviewStore.getters.byBookId(book.value.id).value;
 });
+
+
+// const deleteReview = async (review) => {
+//     await reviewStore.actions.delete(review.id);
+// }
+
+
+// const deleteAuthor = async (author) => {
+//     await authorStore.actions.delete(author.id);
+// }
 
 // const author = "Scape Goat";
 // const author = (book)
@@ -64,6 +72,7 @@ onMounted(async () => {
 <table>     
        <tr>
             <th>Content</th>
+            <th>actions</th>
         </tr>
         <tr v-for="review in reviews" :key="review.id">
 
@@ -74,6 +83,11 @@ onMounted(async () => {
             <br>
             <td>
                 <button @click="reviewStore.actions.delete(review.id)">Verwijder</button>
+            </td>
+            <br>
+            <td>
+                <p>blub</p>
+                <RouterLink :to="{ name: 'reviews.edit', params: { id: review.id } }">Bewerk</RouterLink>
             </td>
         </tr>
 </table>
