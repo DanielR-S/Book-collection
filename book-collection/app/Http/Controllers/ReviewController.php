@@ -6,7 +6,7 @@ use App\Http\Requests\StoreReviewRequest;
 use Illuminate\Http\Request;
 use App\Models\Review;
 use App\Http\Resources\ReviewResource;
-
+use App\Models\Book;
 
 
 class ReviewController extends Controller
@@ -29,7 +29,7 @@ class ReviewController extends Controller
         return ReviewResource::collection($reviews);
     }
 
-    // public function store(StoreReviewRequest $request, $book_id) {
+    // public function store(StoreReviewRequest $request,) {
     //     $review = Review::create($request->validated());
 
     //     $reviews = Review::all();
@@ -38,5 +38,10 @@ class ReviewController extends Controller
     //     return StoreReviewRequest::collection($reviews);
     // }
 
+    public function store(StoreReviewRequest $request) {
+        $review = Review::create($request->validated());
 
+        $reviews = Review::all();
+        return ReviewResource::collection($reviews);
+    }
 }

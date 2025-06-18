@@ -23,6 +23,7 @@ class StoreReviewRequest extends FormRequest
     {
         return [
         'content' => 'required|string',
+        'book_id' => 'required|integer'
         ];
     }
 }

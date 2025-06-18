@@ -1,6 +1,7 @@
-import Edit from "./pages/edit.vue";
+import Edit from "./pages/Edit.vue";
+
 
 
 export const reviewRoutes =  [
-    { path: '/books/:id/edit', component: Edit, name: 'books.edit'},
+    { path: '/reviews/:id/edit', component: Edit, name: 'reviews.edit'},
 ];

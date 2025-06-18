@@ -9,7 +9,7 @@ class Review extends Model
 {
 
     protected $fillable = [
-        'name',
+        'content',
         'book_id',
     ];
 

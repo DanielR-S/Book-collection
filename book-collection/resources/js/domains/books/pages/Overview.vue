@@ -1,18 +1,21 @@
 <script setup>
 import { onMounted } from 'vue';
 // import { fetchBooks, getAllBooks, deleteBook} from '../store';
-import { storeModuleFactory } from '../../../services/store';
+import { getMessage } from './../../../services/error';
+import Message from '../../../services/error/Message.vue';
+import { bookStore } from '../store';
 
-const bookStore = storeModuleFactory('books');
 bookStore.actions.getAll();
 
-// fetchAuthors();
+const deleteBook = async (book) => {
+    await bookStore.actions.delete(book.id);
+}
 
 const books = bookStore.getters.all;
 </script>
 <template>
 <strong><p style="color:green">Tip: Click on a books title to see more info!!</p></strong>
-
+<Message/>
     <table>
         <tr>
             <th>Title</th>
@@ -28,7 +31,7 @@ const books = bookStore.getters.all;
             </td>
             <br>
             <td>
-                <button @click="bookStore.actions.delete(book.id)">Verwijder</button>
+                <button @click="bookStore.actions.delete(book.id);">Verwijder</button>
             </td>
         </tr>
     </table>
